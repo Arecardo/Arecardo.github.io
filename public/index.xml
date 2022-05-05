@@ -1,9 +1,0 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Kryptonian Coding Center</title>
-        <link>http://Arecardo.github.io/</link>
-        <description>Kryptonian Coding Center</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language>
-            <atom:link href="http://Arecardo.github.io/index.xml" rel="self" type="application/rss+xml" />
-        </channel>
-</rss>
