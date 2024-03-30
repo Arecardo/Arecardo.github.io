@@ -1,8 +1,8 @@
 baseURL: http://Arecardo.github.io/
 # [en, zh-cn, fr, ...] determines default content language
-defaultContentLanguage: zh-cn
+defaultContentLanguage: en
 # language code
-languageCode: en
+languageCode: en-us
 title: XR-MATRIX
 
 # publish directory
