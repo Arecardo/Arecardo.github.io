@@ -1,0 +1,50 @@
+baseURL: http://Arecardo.github.io/
+# [en, zh-cn, fr, ...] determines default content language
+defaultContentLanguage: zh-cn
+# language code
+languageCode: en
+title: XR-MATRIX
+
+# publish directory
+publishDir: ./publish
+
+# Change the default theme to be use when building the site with Hugo
+theme: mini
+
+permalinks:
+  posts: /posts/:title/
+
+paginate: 5
+
+# Social links in footer, support github,twitter,stackoverflow,facebook
+social:
+  # e.g.
+  github: your-github-link
+  twitter: your-twitter-link
+  stackoverflow: your-stackoverflow-link
+  # facebook: your-facebook-link
+
+# Site parameters
+params:
+  # Site Author
+  author: Ricardo Zhang
+  # Author biography
+  bio: Software/Reading/Life
+  # Site Description, used in HTML meat
+  description: Think
+  hiddenPostSummaryInHomePage: true
+
+# Hugo Configure Markup
+# More info: https://gohugo.io/getting-started/configuration-markup#
+markup:
+  highlight:
+    guessSyntax: true
+    style: emacs
+  tableOfContents:
+    endLevel: 3
+    ordered: false
+    startLevel: 2
+  # needed to render raw HTML (e.g. <sub>, <sup>, <kbd>, <mark>)
+  goldmark:
+    renderer:
+      unsafe: true
