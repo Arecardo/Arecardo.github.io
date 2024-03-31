@@ -19,9 +19,9 @@ paginate: 5
 # Social links in footer, support github,twitter,stackoverflow,facebook
 social:
   # e.g.
-  github: your-github-link
+  github: https://github.com/Arecardo
   twitter: your-twitter-link
-  stackoverflow: your-stackoverflow-link
+  # stackoverflow: your-stackoverflow-link
   # facebook: your-facebook-link
 
 # Site parameters
