@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>学习方法 on XR-MATRIX</title>
-    <link>http://localhost:1313/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</link>
-    <description>Recent content in 学习方法 on XR-MATRIX</description>
+    <title>知识管理 on XR-MATRIX</title>
+    <link>http://localhost:1313/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</link>
+    <description>Recent content in 知识管理 on XR-MATRIX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 23 Apr 2021 01:17:26 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《你的知识需要管理》读书笔记</title>
       <link>http://localhost:1313/posts/%E4%BD%A0%E7%9A%84%E7%9F%A5%E8%AF%86%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
