@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43;多线程编程 on XR-MATRIX</title>
+    <link>http://localhost:1313/tags/c&#43;&#43;%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/</link>
+    <description>Recent content in C&#43;&#43;多线程编程 on XR-MATRIX</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Apr 2024 01:16:15 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/c++%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;多线程之死锁</title>
+      <link>http://localhost:1313/posts/c-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E6%AD%BB%E9%94%81/</link>
+      <pubDate>Sat, 20 Apr 2024 01:16:15 +0800</pubDate>
+      <guid>http://localhost:1313/posts/c-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E6%AD%BB%E9%94%81/</guid>
+      <description>问题 🔗问题描述、现象&#xA;事情的起因来自于一次工作中的问题排查。场景简化为下图，一个工作线程负责接受并解析消息（线程A），然后将解析的消息重新打包并推送到发送线程（线程B），由发送线程将消息推送出去。后面测试过程中发现除了开头有消息被传送到下游以外，别的时间下游都没有收到任何消息。经过检查日志，发现第一个队列满了，而且在持续不断地因为队列已满发生丢消息的现象。&#xA;显然消息被卡在了线程A的消息队列中，无法传递给线程B。线程间消息的传递通过线程A所拥有的一根指向线程B的指针实现，照例来讲不会出什么问题。由于两个线程的消息队列均由锁实现，那么很容易推测是线程B自己的问题，可能发生了死锁。直接检查代码，在线程B的获取消息函数中找到如下代码。&#xA;{% codeblock lang:c++ %} void Get() { Mutex.lock(); Obj* newObj = list.top(); list.pop(); if(newObj != nullptr) { DoSomthingB(); return; } Mutex.unlock(); } {% endcodeblock %}&#xA;很显然上面这段代码发生了死锁，如果代码进入if判断，那么函数直接结束，锁就不会被释放，造成了队列的死锁。这是一段非常非常经典的死锁代码，各种教科书上必有的经典反例，然而还是被我堂而皇之地写了出来而不自察。反思自身，还是对多线程编程不够熟悉，犯下这样的低级失误。&#xA;由此引出两个需要巩固的地方：1. 死锁相关的理论知识；2. C++多线程编程中避免死锁的技巧。&#xA;死锁相关理论知识 🔗死锁相关的理论知识已经在无数的操作系统相关教科书、博客、文章、公众号中提及，这边做一个简单梳理。推荐操作系统经典教科书&amp;quot;Operating System: Three Easy Pieces&amp;quot;，操作系统入门的最好教材之一。以下内容都来自于该书的第32章&amp;quot;Common Concurrency Problems&amp;quot;中关于死锁的部分。&#xA;大部分死锁问题之所以产生的究极原因可以归为两点：1. 在大型系统的代码中，其组件之间会产生异常复杂的依赖关系（dependencies），这份依赖关系会导致意料之外的死锁；2. 封装（encapsulation）的天性，那些隐藏了细节封装得很好的接口很可能是不安全的。&#xA;死锁的四个条件：&#xA;互斥(Mutual Exclusive): 线程对于资源的访问是独占式的，比如锁是一种资源，一个线程获取锁就是一种互斥行为。 占有且等待(Hold-and-wait): 一旦线程获取了某个资源，但是还处于等待状态(比如等待其他资源)，不会主动释放已经占有的资源。(比如一个线程需要获得两把锁，但是现在只获取了一把，它就会一直等啊等) 不可抢占(No preemption): 资源(比如锁)不能被强制从线程中移除(e.g. 朕(线程A)给了你(线程B)，才是你的，你不能抢) 循环等待(Circular wait): 在程序中，存在一个线程的循环，这个循环是这样的: 每一个线程都持有一些被下一个线程请求的资源，从而形成了一个等待链。 上述的四个条件是形成死锁的必要条件，只要打破一个，那么死锁就不会发生。&#xA;C++多线程编程中避免死锁 🔗接下来是根据网上一些教材、博客整理的，从编程经验的角度如何避免死锁。&#xA;首先是T0级别的方法，不要用锁不要有缓冲区。最最简单粗暴的办法，从设计上尽量避免临界区的出现，从而杜绝了死锁的可能。然而这种方法可能在95%的场景下都不适用，多线程编程中想要避免临界区的出现几乎不可能。&#xA;如果T0方法失效，那么我们只能靠自己。什么叫靠自己呢，就是培养自己的“纪律性”。在处理多线程问题的时候可以参考下面几点策略：&#xA;如果不确定多线程场景的情况，那就先保证单线程场景下的正确性，然后再往多线程移植。不可能一下子写出完美的代码，要学会“小步快走”，最好能随写随测。 每一个加锁动作都需要配套的释放动作，同时注意检查代码中的分支。 尽量使用库里的锁实现，或者在自己已经封装好的锁上进行修改，无须重复造轮子。 尽量不要出现同时操作多把锁的情况，如果一定要出现那要注意锁的操作顺序。 写好单元测试，验证没有死锁情况的出现。 必要时可以借助一些工具验证死锁。 References 🔗[1] Remzi H.</description>
+    </item>
+  </channel>
+</rss>
