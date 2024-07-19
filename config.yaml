@@ -9,7 +9,7 @@ title: XR-MATRIX
 publishDir: ./publish
 
 # Change the default theme to be use when building the site with Hugo
-theme: mini
+theme: cactus
 
 permalinks:
   posts: /posts/:title/
