@@ -1,4 +1,4 @@
-baseURL: http://Arecardo.github.io/
+baseURL: https://Arecardo.github.io/
 # [en, zh-cn, fr, ...] determines default content language
 defaultContentLanguage: en
 # language code
@@ -34,6 +34,7 @@ params:
   description: Thinking, Creating and Loving
   hiddenPostSummaryInHomePage: true
   showToc: true
+  colortheme: dark
 
 # Hugo Configure Markup
 # More info: https://gohugo.io/getting-started/configuration-markup#
