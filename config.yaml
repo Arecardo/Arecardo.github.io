@@ -32,7 +32,7 @@ params:
   description: Thinking, Creating and Loving
   hiddenPostSummaryInHomePage: true
   showToc: true
-  showAllPostsOnHomePage = true
+  showAllPostsOnHomePage: true
 
 # Hugo Configure Markup
 # More info: https://gohugo.io/getting-started/configuration-markup#
