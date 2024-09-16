@@ -14,8 +14,6 @@ theme: cactus
 permalinks:
   posts: /posts/:title/
 
-paginate: 5
-
 # Social links in footer, support github,twitter,stackoverflow,facebook
 social:
   # e.g.
