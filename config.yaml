@@ -48,3 +48,18 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+
+menu:
+  main:
+    - name: Home
+      url: /
+      weight: 1
+    - name: Writings
+      url: /posts
+      weight: 2
+    - name: Tags
+      url: /tags
+      weight: 3
+    - name: About
+      url: /about
+      weight: 4
